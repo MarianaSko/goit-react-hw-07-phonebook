@@ -36,8 +36,8 @@ export const App = () => {
           You don't have any contacts in your phonebook yet.
         </StyledMessage>
       )}
-      {isLoading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+      {isLoading && <StyledMessage>Loading...</StyledMessage>}
+      {error && <StyledMessage>{error}</StyledMessage>}
     </Container>
   );
 };

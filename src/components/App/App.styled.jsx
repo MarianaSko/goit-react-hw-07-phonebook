@@ -19,6 +19,10 @@ export const Container = styled.div`
 
 export const StyledMessage = styled.p`
   opacity: 0.6;
+  font-size: 20px;
+  font-weight: bold;
+  /* color: rgba(21, 31, 144); */
+  text-shadow: -4px 4px 8px rgba(21, 31, 144, 0.8);
 `;
 
 export const StyledMainHeading = styled.h1`
