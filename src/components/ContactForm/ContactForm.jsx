@@ -6,21 +6,19 @@ import {
   StyledInput,
   StyledLabel,
 } from './ContactForm.styled';
-import { nanoid } from 'nanoid';
-import { createContactAction } from '../../redux/phonebookSlice';
+import { addContactsThunk } from '../../redux/operations';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
 
-  const contacts = useSelector(state => state.phonebook.contacts);
+  const contacts = useSelector(state => state.phonebook.contacts.items);
 
   const createContact = e => {
     e.preventDefault();
 
     const newContact = {
-      id: nanoid(),
       name: e.target.elements.name.value,
-      number: e.target.elements.number.value,
+      phone: e.target.elements.number.value,
     };
 
     for (let item of contacts) {
@@ -31,7 +29,7 @@ export const ContactForm = () => {
       }
     }
 
-    dispatch(createContactAction(newContact));
+    dispatch(addContactsThunk(newContact));
     e.currentTarget.reset();
   };
 
@@ -40,11 +38,23 @@ export const ContactForm = () => {
       <ul>
         <StyledListItem>
           <StyledLabel htmlFor="name">Name </StyledLabel>
-          <StyledInput type="text" name="name" id="name" required />
+          <StyledInput
+            type="text"
+            name="name"
+            id="name"
+            required
+            value={contacts.name}
+          />
         </StyledListItem>
         <StyledListItem>
           <StyledLabel htmlFor="number">Number </StyledLabel>
-          <StyledInput type="tel" name="number" id="number" required />
+          <StyledInput
+            type="tel"
+            name="number"
+            id="number"
+            required
+            value={contacts.phone}
+          />
         </StyledListItem>
       </ul>
       <StyledBtn type="submit">Add contact</StyledBtn>
