@@ -9,21 +9,21 @@ import { deleteContactsThunk } from '../../redux/operations';
 export const ContactListItem = () => {
   const dispatch = useDispatch();
 
-  const filter = useSelector(state => state.phonebook.filter);
-  const contacts = useSelector(state => state.phonebook.contacts);
+  const { filter } = useSelector(state => state.phonebook);
+  const contacts = useSelector(state => state.phonebook.contacts.items);
 
   const getFilteredContacts = () => {
-    return contacts.items.filter(item =>
-      item.name.toLowerCase().includes(filter.toLowerCase())
+    return contacts.filter(({ name }) =>
+      name.toLowerCase().includes(filter.toLowerCase())
     );
   };
 
-  return getFilteredContacts().map(item => (
-    <StyledContactItem key={item.id}>
+  return getFilteredContacts().map(({ id, name, phone }) => (
+    <StyledContactItem key={id}>
       <p>
-        <StyledSpan>{item.name}:</StyledSpan> {item.phone}
+        <StyledSpan>{name}:</StyledSpan> {phone}
       </p>
-      <StyledBtn onClick={() => dispatch(deleteContactsThunk(item.id))}>
+      <StyledBtn onClick={() => dispatch(deleteContactsThunk(id))}>
         Delete
       </StyledBtn>
     </StyledContactItem>

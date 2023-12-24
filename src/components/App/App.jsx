@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import { fetchContactsThunk } from '../../redux/operations';
 
 export const App = () => {
-  const { items } = useSelector(state => state.phonebook.contacts);
+  const contacts = useSelector(state => state.phonebook.contacts.items);
   const { error } = useSelector(state => state.phonebook.contacts);
   const { isLoading } = useSelector(state => state.phonebook.contacts);
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export const App = () => {
       <StyledMainHeading>Phonebook</StyledMainHeading>
       <ContactForm />
       <StyledHeading>Contacts</StyledHeading>
-      {items?.length ? (
+      {contacts?.length ? (
         <div>
           <Filter />
           <ContactList />
