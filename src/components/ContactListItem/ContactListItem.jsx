@@ -6,20 +6,11 @@ import {
 } from './ContsctListItem.styled';
 import { deleteContactsThunk } from '../../redux/operations';
 
-export const ContactListItem = () => {
+export const ContactListItem = ({ name, phone, id }) => {
   const dispatch = useDispatch();
 
-  const { filter } = useSelector(state => state.phonebook);
-  const contacts = useSelector(state => state.phonebook.contacts.items);
-
-  const getFilteredContacts = () => {
-    return contacts.filter(({ name }) =>
-      name.toLowerCase().includes(filter.toLowerCase())
-    );
-  };
-
-  return getFilteredContacts().map(({ id, name, phone }) => (
-    <StyledContactItem key={id}>
+  return (
+    <StyledContactItem>
       <p>
         <StyledSpan>{name}:</StyledSpan> {phone}
       </p>
@@ -27,5 +18,5 @@ export const ContactListItem = () => {
         Delete
       </StyledBtn>
     </StyledContactItem>
-  ));
+  );
 };

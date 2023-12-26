@@ -7,11 +7,12 @@ import {
   StyledLabel,
 } from './ContactForm.styled';
 import { addContactsThunk } from '../../redux/operations';
+import { selectContacts } from '../../redux/selectors';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
 
-  const contacts = useSelector(state => state.phonebook.contacts.items);
+  const contacts = useSelector(selectContacts);
 
   const createContact = e => {
     e.preventDefault();
@@ -21,12 +22,15 @@ export const ContactForm = () => {
       phone: e.target.elements.number.value,
     };
 
-    for (let item of contacts) {
-      if (item.name === e.target.elements.name.value) {
-        alert(`${item.name} is already in contacts.`);
-        e.currentTarget.reset();
-        return;
-      }
+    if (
+      contacts.find(
+        item =>
+          item.name.toLowerCase() === e.target.elements.name.value.toLowerCase()
+      )
+    ) {
+      alert(`${e.target.elements.name.value} is already in contacts.`);
+      e.currentTarget.reset();
+      return;
     }
 
     dispatch(addContactsThunk(newContact));

@@ -10,11 +10,16 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchContactsThunk } from '../../redux/operations';
+import {
+  selectContacts,
+  selectError,
+  selectIsLoading,
+} from '../../redux/selectors';
 
 export const App = () => {
-  const contacts = useSelector(state => state.phonebook.contacts.items);
-  const { error } = useSelector(state => state.phonebook.contacts);
-  const { isLoading } = useSelector(state => state.phonebook.contacts);
+  const contacts = useSelector(selectContacts);
+  const error = useSelector(selectError);
+  const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
